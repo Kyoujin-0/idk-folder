@@ -1,0 +1,5 @@
+Keyboard,30
+CPU,20
+Monitor,15
+GPU,10
+Motherboard,15

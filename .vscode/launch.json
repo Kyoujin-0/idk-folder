@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run C in VS Code Terminal",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "externalConsole": true,
+      "preLaunchTask": "build C program",
+      "miDebuggerPath": "C:/MinGW/bin/gdb.exe"
+    }
+  ]
+}
