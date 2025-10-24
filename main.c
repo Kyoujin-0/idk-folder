@@ -16,7 +16,7 @@ int main()
     int totalProducts = 3;
     int productCount = 3;
 
-    printf("\n=======================================\n Product Inventory Management System \n=======================================\n");
+    printf("\n=======================================\n \033[1;31mProduct Inventory Management System\033[0m \n=======================================\n");
 
     // Load saved inventory (if file exists)
     FILE *file = fopen("inventory.txt", "r");

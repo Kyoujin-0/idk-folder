@@ -4,28 +4,25 @@
 #include <stdbool.h>
 
 int main()
-{
+{	
 
 	char username[50][50];
 	char password[50][50];
 
 	char storedUsername[50][50];
 	char storedPassword[50][50];
+	char loggedUser[50];
 	bool passedLogin = false;
 	int completedSection = 0;
 	int numberOfUser = 0;
-	int numberOfUsername = 0;
-	int numberOfPassword = 0;
 	int loginOption = 0;
 
 	FILE *file = fopen("User login.txt", "r");
 	if (file != NULL)
 	{
-		while (fscanf(file, " %49[^,],%49[^\n]\n", storedUsername[numberOfUsername], &storedPassword[numberOfPassword]) == 2)
+		while (fscanf(file, " %49[^,],%49[^\n]\n", storedUsername[numberOfUser], &storedPassword[numberOfUser]) == 2)
 		{
 			numberOfUser++;
-			numberOfUsername++;
-			numberOfPassword++;
 		}
 		fclose(file);
 		printf("Loaded %d products from User login.txt\n", numberOfUser);
@@ -45,22 +42,17 @@ int main()
 		{
 		case 1: //sign up
 
-			for (int i = 0; i < 1; i++)
-
-			{
 				printf("Enter username: ");
-				fgets(username[numberOfUsername], 50, stdin);
-				username[numberOfUsername][strcspn(username[numberOfUsername], "\n")] = 0;
+				fgets(storedUsername[numberOfUser], 50, stdin);
+				storedUsername[numberOfUser][strcspn(storedUsername[numberOfUser], "\n")] = 0;
 
 				printf("Enter password: ");
-				fgets(password[numberOfPassword], 50, stdin);
-				password[numberOfPassword][strcspn(password[numberOfPassword], "\n")] = 0;
+				fgets(storedPassword[numberOfUser], 50, stdin);
+				storedPassword[numberOfUser][strcspn(storedPassword[numberOfUser], "\n")] = 0;
 
 				numberOfUser++;
-				numberOfUsername++;
-				numberOfPassword++;
-			}
 			break;
+
 
 		case 2: //log in
 
@@ -68,22 +60,35 @@ int main()
 			printf("Enter username: ");
 			fgets(username[0], 50, stdin);
 			username[0][strcspn(username[0], "\n")] = 0;
+
 			printf("Enter password: ");
 			fgets(password[0], 50, stdin);
 			password[0][strcspn(password[0], "\n")] = 0;
-			if (strcmp(username[0], storedUsername[0]) == 0 && strcmp(password[0], storedPassword[0]) == 0)
+
+			passedLogin = false;
+			for (int i = 0; i < numberOfUser; i++)
+			{
+				if (strcmp(username[0], storedUsername[i]) == 0 && strcmp(password[0], storedPassword[i]) == 0)
 			{	
-				printf("Login successful! Welcome, %s\n", username[0]);
+				printf("Login successful! Welcome, %s\n", storedUsername[i]);
+				strcpy(loggedUser, storedUsername[i]);
 				passedLogin = true;
 				break;
-			}
 
-			else
-			{
-				printf("Invalid username or password. Please try again.\n");
+				
+			} 
 			}
-		} while (passedLogin == false);
+			if (!passedLogin)
+            {
+                printf("Invalid username or password. Please try again.\n");
+            }
+		
+		} while (!passedLogin);
 			break;
+
+		default:
+			printf("Invalid option. Exiting program.\n");
+			return 1;
 	}
 
 	file = fopen("User login.txt", "w");
@@ -93,33 +98,32 @@ int main()
 		return 1;
 	}
 
-	for (int i = 0; i < numberOfUser - 1; i++)
+	for (int i = 0; i < numberOfUser; i++)
 	{
 		fprintf(file, "%s,%s\n", storedUsername[i], storedPassword[i]);
 	}
 
-	fprintf(file, "%s,%s\n", username[numberOfUsername - 1], password[numberOfPassword - 1]);
-
 	fclose(file);
 	printf("login saved successfully to 'User login.txt'!\n");
 
-
-/*print sample output
-for (int i = 0; i < numberOfUser - 1; i++)
+if (loginOption == 1)
 {
-	printf("Login successful! Welcome, %s   ", storedUsername[i]);
-	printf("%s\n", storedPassword[i]);
+	printf("You can now log in with your new account.\n");
+	getchar();
+	return 0;
 }
 
-printf("Login successful! Welcome, %s   ", username[numberOfUsername - 1]);
-printf("%s\n", password[numberOfPassword - 1]);*/
+char command[200];
+// put username in quotes in case it has spaces, and use snprintf to avoid overflow
+snprintf(command, sizeof(command), "Advance_version.exe \"%s\"", loggedUser);
 
-printf("Username:%s\n", storedUsername[0]);
-	printf("password:%s\n", storedPassword[0]);
-	printf("answer:%s\n", username[0]);
-	printf("answer:%s\n", password[0]);
+// run once — this launches the other program with the username argument
+int status = system(command);
+if (status != 0) {
+	printf("Failed to launch Advance_version.exe or it exited with an error (exit code: %d)\n", status);
+}
 
-system("pause");
-// system("main.exe");
+//system("pause");
+//system("main.exe");
 return 0;
 }

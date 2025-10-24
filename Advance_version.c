@@ -3,9 +3,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-
-int main()
-{
+int main(int argc, char *argv[])
+{   
 
     int actionChoice = 0;
     int additionalQuantity = 0;
@@ -17,7 +16,32 @@ int main()
     int totalProducts = 3;
     int productCount = 3;
 
-    printf("=======================================\n Product Inventory Management System \n=======================================");
+    printf("\n=======================================\n \033[1;32mProduct Inventory Management System\033[0m \n=======================================\n");
+    printf("               \033[1;31mADVANCE\033[0m\n\n");
+
+//get the username
+if (argc > 1) {
+    printf("Logged in as: %s\n", argv[1]);
+} else {
+    printf("No username argument received.\n");
+}
+
+    // Load saved inventory (if file exists)
+    FILE *file = fopen("inventory.txt", "r");
+    if (file != NULL)
+    {
+        while (fscanf(file, "%99[^,],%d\n", products[productCount], &productQuantity[productCount]) == 2)
+        {
+            productCount++;
+        }
+        fclose(file);
+        printf("Loaded %d products from the inventory\n", productCount);
+    }
+    else
+    {
+        printf("No saved inventory found. Starting with default items.\n");
+    }
+
 
     do
     {
@@ -94,10 +118,25 @@ int main()
 
         case 4: // Delete product
 
-        case 9:
+        case 9: // Save & Exit
+        {
+            FILE *file = fopen("inventory.txt", "w");
+            if (file == NULL)
+            {
+                printf("Error saving file!\n");
+                break;
+            }
+
+            for (int i = 0; i < productCount; i++)
+            {
+                fprintf(file, "%s,%d\n", products[i], productQuantity[i]);
+            }
+
+            fclose(file);
+            printf("Inventory saved successfully to 'inventory.txt'!\n");
             break;
         }
-
+        } // close switch
     } while (actionChoice != 9);
 
     system("pause");
