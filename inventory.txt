@@ -1,8 +1,2 @@
-Keyboard,30
-CPU,20
-Monitor,15
-Keyboard,30
-CPU,20
-Monitor,15
-GPU,10
-Motherboard,15
+ahgkd,90
+six seven,67

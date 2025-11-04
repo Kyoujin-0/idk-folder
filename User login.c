@@ -20,12 +20,12 @@ int main()
 	FILE *file = fopen("User login.txt", "r");
 	if (file != NULL)
 	{
-		while (fscanf(file, " %49[^,],%49[^\n]\n", storedUsername[numberOfUser], &storedPassword[numberOfUser]) == 2)
+		while (fscanf(file, " %49[^,],%49[^\n]\n", storedUsername[numberOfUser], storedPassword[numberOfUser]) == 2)
 		{
 			numberOfUser++;
 		}
 		fclose(file);
-		printf("Loaded %d products from User login.txt\n", numberOfUser);
+		printf("Loaded %d accounts from User login.txt\n", numberOfUser);
 	}
 	else
 	{
@@ -113,17 +113,7 @@ if (loginOption == 1)
 	return 0;
 }
 
-char command[200];
-// put username in quotes in case it has spaces, and use snprintf to avoid overflow
-snprintf(command, sizeof(command), "Advance_version.exe \"%s\"", loggedUser);
-
-// run once — this launches the other program with the username argument
-int status = system(command);
-if (status != 0) {
-	printf("Failed to launch Advance_version.exe or it exited with an error (exit code: %d)\n", status);
-}
-
 //system("pause");
-//system("main.exe");
+system("main.exe");
 return 0;
 }
