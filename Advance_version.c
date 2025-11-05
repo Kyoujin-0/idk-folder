@@ -31,8 +31,9 @@ int main(int argc, char *argv[])
     char loggedUser[50];
 
     printf("\n=======================================\n \033[1;32mProduct Inventory Management System\033[0m \n=======================================\n");
-    printf("               \033[1;31mUPDATED\033[0m\n\n");
 
+
+    
     // get the username
     if (argc > 1)
     {

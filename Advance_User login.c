@@ -25,7 +25,6 @@ int main()
 			numberOfUser++;
 		}
 		fclose(file);
-		printf("Loaded %d accounts from User login.txt\n", numberOfUser);
 	}
 	else
 	{
@@ -113,10 +112,8 @@ if (loginOption == 1)
 }
 
 char command[200];
-// put username in quotes in case it has spaces, and use snprintf to avoid overflow
 snprintf(command, sizeof(command), "Advance_version.exe \"%s\"", loggedUser);
 
-// run once — this launches the other program with the username argument
 int status = system(command);
 if (status != 0) {
 	printf("Failed to launch Advance_version.exe or it exited with an error (exit code: %d)\n", status);
