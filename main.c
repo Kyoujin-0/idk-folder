@@ -44,7 +44,7 @@ int main()
         printf("2. View all product\n");
         printf("3. Update quantity\n");
         printf("4. Delete product\n");
-        printf("9. Save & Exit\n");
+        printf("5. Save & Exit\n");
         printf("Choose an action: ");
         scanf("%d", &actionChoice);
         printf("---------------------------------------\n");
@@ -110,7 +110,7 @@ int main()
 
         case 4: // Delete product
 
-        case 9: // Save & Exit
+        case 5: // Save & Exit
         {
             FILE *file = fopen("inventory.txt", "w");
             if (file == NULL)
@@ -129,7 +129,7 @@ int main()
             break;
         }
         } // close switch
-    } while (actionChoice != 9);
+    } while (actionChoice != 5);
 
     system("pause");
     return 0;

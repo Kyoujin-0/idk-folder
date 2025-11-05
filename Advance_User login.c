@@ -104,7 +104,6 @@ int main()
 	}
 
 	fclose(file);
-	printf("login saved successfully to 'User login.txt'!\n");
 
 if (loginOption == 1)
 {
